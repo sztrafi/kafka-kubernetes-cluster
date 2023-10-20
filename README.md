@@ -72,7 +72,7 @@ Instead of typing kubectl, you can use "k" by alias with this command:
 
 
    ```
-   kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka’
+   kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka'
    ```
 
 ### Monitoring cluster deployment
@@ -180,5 +180,11 @@ and in case you want to fully remove the Strimzi cluster operator and everything
 
    ```
    kubectl -n kafka delete -f 'https://strimzi.io/install/latest?namespace=kafka'
+   ```
+
+or you can simply delete the whole namespace:
+
+   ```
+   kubectl delete namespace kafka
    ```
 
