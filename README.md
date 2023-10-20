@@ -2,14 +2,18 @@
 This is a sample project of 3-node fully functioning Kafka cluster on a local workstation, which is using Strimzi Kafka distribution.
 
 
+
 # Introduction
 This is a sample project of 3-node fully functioning Kafka cluster on a local workstation, which is using Strimzi Kafka distribution.
 
 Configuration of Kafka Brokers listen to both listeners:
+
 ● PLAINTEXT (unauthenticated)
+
 ● SSL certificates (authenticated)
 
 The goal is to start the Kafka clients directly from within the cluster to produce and consume some test messages.
+
 
 # Instructions
 
