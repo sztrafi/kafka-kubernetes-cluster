@@ -11,12 +11,13 @@ Configuration of Kafka Brokers listen to both listeners:
 
 The goal is to start the Kafka clients directly from within the cluster to produce and consume some test messages.
 
+This sample project is heavily based on [Strimzi](https://strimzi.io/) solution.
 
 # Instructions
 
 # Install Docker Desktop
 
-1. With MacOS it is enough to download the Docker Desktop from:
+### With MacOS it is enough to download the Docker Desktop from:
 
    ```
    https://www.docker.com/products/docker-desktop/
@@ -26,7 +27,8 @@ If you are on Windows, you might want to use WSL2 and the docker desktop extensi
 
 Docker desktop will run small, light-weight Linux VM in the backgroud.
 
-2. Enable Kubernetes in Docker Destop settings
+
+### Enable Kubernetes in Docker Destop settings
 
 Docker Dashboard -> Setting icon -> Kubernetes from the left sidebar -> Select Checkbox -> Apply & Restart
 
@@ -46,14 +48,14 @@ With another command, you can check which images docker created for that Kuberne
 
 # Kubernetes Cluster
 
-1. Create namespace:
+### Create namespace:
 
 Let's create a namespace in which our kafka cluster will operate:
 
    ```
    kubectl create namespace kafka
    ```
-2. Setting up the context:
+### Setting up the context:
 
    ```
    kubectl config set-context --current --namespace=kafka
@@ -66,14 +68,14 @@ Instead of typing kubectl, you can use "k" by alias with this command:
    alias k='kubectl' 
    ```
 
-3. Apply the Strimzi install files
+### Apply the Strimzi install files
 
 
    ```
-   kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka’
+   kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka'
    ```
 
-4. Monitoring cluster deployment
+### Monitoring cluster deployment
 
 Follow the deployment of the Strimzi cluster operator:
 
@@ -91,20 +93,20 @@ You can also follow the operator’s log:
 
 # Deploy Kafka cluster with config file
 
-1. From now on we would need to use custom files from this repo. 
+### From now on we would need to use custom files from this repo. 
 
 
    ```
    git clone https://github.com/sztrafi/kafka-kubernetes-cluster.git
    ```
 
-2. Run the command to deploy Kafka 
+### Run the command to deploy Kafka 
 
    ```
    kubectl apply -f /your_choosen_destination/kafka-kubernetes-cluster/nodes/kafka_3_node.yaml
    ```
 
-3. Monitoring:
+### Monitoring:
 
    ```
    kubectl get pod --watch
@@ -112,12 +114,12 @@ You can also follow the operator’s log:
 
 # Create a Kafka Topic using the operator
 
-1. Let's create a topic for our Kafka workflow. The yaml file for creation it consist of the topic name: "samples":
+### Let's create a topic for our Kafka workflow. The yaml file for creation it consist of the topic name: "samples":
 
    ```
    kubectl apply -f /your_choosen_destination/kafka-kubernetes-cluster/topic/topic.yaml 
    ```
-2. Here are useful comands for verification:
+### Here are useful comands for verification:
 
    ```
    kubectl get kafkatopics
@@ -126,13 +128,13 @@ You can also follow the operator’s log:
 
 # Create a Kafka User with Authentication TLS & Simple Authorization
 
-1. As we have repo downloaded, we can use another yaml files, this time for user creation:
+### As we have repo downloaded, we can use another yaml files, this time for user creation:
 
    ```
    kubectl apply -f /your_choosen_destination/kafka-kubernetes-cluster/user/kafka_user.yaml
    ```
 
-2. Let's verify creation of secrets:
+### Let's verify creation of secrets:
 
    ```
    kubectl get secrets
@@ -146,20 +148,20 @@ You can also follow the operator’s log:
 
 # Send and receive messages
 
-1. Again, as in the previous steps, we need to deploy a component of Kafka workflow, this time producer and consumer:
+### Again, as in the previous steps, we need to deploy a component of Kafka workflow, this time producer and consumer:
 
    ```
    kubectl apply -f /your_choosen_destination/kafka-kubernetes-cluster/producer_consumer/producer_consumer.yaml
    ```
 
-2. Let's verify with simple kubectl command if our pods are running.
+### Let's verify with simple kubectl command if our pods are running.
    We should see both "hello_world_producer_xxx" and "hello_world_consumer_xxx" as defined in our yaml config file.
 
    ```
    kubectl get pods
    ```
 
-3. To get more specific logs of the messeges send/received we can use:
+### To get more specific logs of the messeges send/received we can use:
 
    ```
    kubectl logs hello-world-producer-xxx
@@ -178,5 +180,11 @@ and in case you want to fully remove the Strimzi cluster operator and everything
 
    ```
    kubectl -n kafka delete -f 'https://strimzi.io/install/latest?namespace=kafka'
+   ```
+
+or you can simply delete the whole namespace:
+
+   ```
+   kubectl delete namespace kafka
    ```
 
