@@ -11,7 +11,7 @@ Configuration of Kafka Brokers listen to both listeners:
 
 The goal is to start the Kafka clients directly from within the cluster to produce and consume some test messages.
 
-The solution is heavily based on [Strimzi](https://strimzi.io/) solution.
+This sample project is heavily based on [Strimzi](https://strimzi.io/) solution.
 
 # Instructions
 
