@@ -1,0 +1,36 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: kafka-tls-client-credentials
+  labels:
+    strimzi.io/cluster: my-cluster
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+    - resource:
+        type: topic
+        name: samples
+      operation: Write
+    - resource:
+        type: topic
+        name: samples
+      operation: Create
+    - resource:
+        type: topic
+        name: samples
+      operation: Describe
+    - resource:
+        type: topic
+        name: samples
+      operation: Read
+    - resource:
+        type: topic
+        name: samples
+      operation: Describe
+    - resource:
+        type: group
+        name: my-group
+      operation: Read
